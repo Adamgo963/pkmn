@@ -1,6 +1,6 @@
 import React, { FC, useState, useCallback, useEffect } from "react";
 import PkmnTable from "./PkmnTable";
-import {Typography, Grid, makeStyles } from "@material-ui/core";
+import {Typography, Grid} from "@material-ui/core";
 import { IPkmnCard } from "../types";
 
 const getSetCards = async (setCode: string): Promise<IPkmnCard[]> => {
