@@ -13,15 +13,15 @@ const CardList: FC = () => {
     
     // States to store data and for loading while cards are fetched
     const [loading, setLoading] = useState(false);
-    const [data, setData] = useState<any>();
+    const [data, setData] = useState<IPkmnCard[]>();
     const setCode: string = "base1"
       
     // Loads the set cards
     const loadData = useCallback(async () => {
         setLoading(true);
         try {
-            const cards = await getSetCards(setCode);
-            setData(cards);
+            const cards: any = await getSetCards(setCode);
+            setData(cards.data);
         } finally {
           setLoading(false);
         }
@@ -35,13 +35,12 @@ const CardList: FC = () => {
     if (loading) {
       return <Typography variant="h2">Loading...</Typography>;
     }
-  
-    console.log(data);
-   
+     
     return (
       <Grid container alignItems="center" justify="center">
         <Grid item xl={6} lg={6} sm={8} xs={12}>
-          <PkmnTable></PkmnTable>
+          {data ? (<PkmnTable data={data}></PkmnTable>) :
+          (<Typography variant="h2">Loading...</Typography>)}
         </Grid>
       </Grid>
     );

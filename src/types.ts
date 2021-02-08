@@ -1,5 +1,10 @@
 export type IPkmnCard = {
     id: string;
+    name: string;
     number: number;
-    imageUrl: string;
+    rarity: string;
+    images: {
+      small: string;
+      large: string;
+    }
   };
