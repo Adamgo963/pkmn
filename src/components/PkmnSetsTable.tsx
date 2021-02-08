@@ -1,6 +1,6 @@
 import { makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@material-ui/core";
 import React, { FC } from "react";
-import { IPkmnCard } from "../types";
+import { IPkmnSet } from "../types";
 
 const useStyles = makeStyles({
   table: {
@@ -8,11 +8,11 @@ const useStyles = makeStyles({
   },
 });
 
-type PkmnTableProps = {
-  data: IPkmnCard[];
+type PkmnCardsTableProps = {
+  data: IPkmnSet[];
 }
 
-const PkmnTable: FC<PkmnTableProps> = ({data}) => {
+const PkmnCardsTable: FC<PkmnCardsTableProps> = ({data}) => {
       
   const classes = useStyles();
       
@@ -21,19 +21,19 @@ const PkmnTable: FC<PkmnTableProps> = ({data}) => {
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Card #</TableCell>
-            <TableCell>Card Name</TableCell>
-            <TableCell>Rarity</TableCell>
+            <TableCell>Set Name</TableCell>
+            <TableCell>Set Size</TableCell>
+            <TableCell>Release Date</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {data?.map((item: IPkmnCard) => (
-            <TableRow key={item.number}>
+          {data?.map((item: IPkmnSet) => (
+            <TableRow key={item.name}>
               <TableCell component="th" scope="row">
-                {item.number}
+                {item.name}
               </TableCell>
-              <TableCell>{item.name}</TableCell>
-              <TableCell>{item.rarity}</TableCell>
+              <TableCell>{item.total}</TableCell>
+              <TableCell>{item.releaseDate}</TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -42,4 +42,4 @@ const PkmnTable: FC<PkmnTableProps> = ({data}) => {
   );
 }
 
-export default PkmnTable;
+export default PkmnCardsTable;

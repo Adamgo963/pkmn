@@ -1,9 +1,9 @@
 import './App.css';
-import CardList from './components/CardList';
+import SetList from './components/SetList';
 
 function App() {
   return (
-    <CardList></CardList>
+    <SetList></SetList>
   );
 }
 
