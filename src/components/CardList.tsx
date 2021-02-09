@@ -9,12 +9,15 @@ const getSetCards = async (setCode: string): Promise<any[]> => {
     return cards;
 };
 
-const CardList: FC = () => {
+type CardListProps = {
+  setCode: string;
+}
+
+const CardList: FC<CardListProps> = ({setCode}) => {
     
     // States to store data and for loading while cards are fetched
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState<IPkmnCard[]>();
-    const setCode: string = "base1"
       
     // Loads the set cards
     const loadData = useCallback(async () => {

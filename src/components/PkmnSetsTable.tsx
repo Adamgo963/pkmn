@@ -1,6 +1,7 @@
-import { makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@material-ui/core";
+import {makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@material-ui/core";
 import React, { FC } from "react";
 import { IPkmnSet } from "../types";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
   table: {
@@ -29,9 +30,7 @@ const PkmnCardsTable: FC<PkmnCardsTableProps> = ({data}) => {
         <TableBody>
           {data?.map((item: IPkmnSet) => (
             <TableRow key={item.name}>
-              <TableCell component="th" scope="row">
-                {item.name}
-              </TableCell>
+              <TableCell component="th" scope="row"><Link to={`/sets/${item.id}`}>{item.name}</Link></TableCell>
               <TableCell>{item.total}</TableCell>
               <TableCell>{item.releaseDate}</TableCell>
             </TableRow>
