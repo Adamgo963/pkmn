@@ -19,3 +19,5 @@ export type IPkmnSet = {
     logo: string;
   }
 }
+
+export type IView = 'Grid' | 'List';

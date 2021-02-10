@@ -1,7 +1,8 @@
 import React, { FC, useState, useCallback, useEffect } from "react";
 import PkmnCardsTable from "./PkmnCardsTable";
-import {Typography, Grid} from "@material-ui/core";
-import { IPkmnCard } from "../types";
+import {Typography, Grid, Button} from "@material-ui/core";
+import { IPkmnCard, IView } from "../types";
+import PkmnCardsGrid from "./PkmnCardsGrid";
 
 const getSetCards = async (setCode: string): Promise<any[]> => {
     const response = await fetch(`https://api.pokemontcg.io/v2/cards/?q=set.id:${setCode}`);
@@ -18,6 +19,7 @@ const CardList: FC<CardListProps> = ({setCode}) => {
     // States to store data and for loading while cards are fetched
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState<IPkmnCard[]>();
+    const [view, setView] = useState<IView>('List');
       
     // Loads the set cards
     const loadData = useCallback(async () => {
@@ -34,16 +36,24 @@ const CardList: FC<CardListProps> = ({setCode}) => {
     useEffect(() => {
       loadData();
     }, [loadData]);
+
+    const changeView = () => {
+      view === 'List' ? setView('Grid') : setView('List');
+    }
   
     if (loading) {
       return <Typography variant="h2">Loading...</Typography>;
     }
-     
+    
     return (
       <Grid container alignItems="center" justify="center">
-        <Grid item xl={6} lg={6} sm={8} xs={12}>
-          {data ? (<PkmnCardsTable data={data}></PkmnCardsTable>) :
-          (<Typography variant="h2">Loading...</Typography>)}
+        <Grid item xl={6} lg={6} sm={12} xs={12}>
+          <Button variant="contained" color="primary" onClick={() => changeView()}>Switch View</Button>
+          {data ? 
+            (view === 'List' ? 
+              <PkmnCardsTable data={data}></PkmnCardsTable> 
+              : <PkmnCardsGrid data={data}></PkmnCardsGrid>) 
+            : (<Typography variant="h2">Loading...</Typography>)}
         </Grid>
       </Grid>
     );
