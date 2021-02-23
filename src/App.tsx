@@ -6,11 +6,12 @@ import React, { FC, useEffect } from 'react';
 import { signIn, useUser } from './utils/firebase';
 import { createMuiTheme, makeStyles, MuiThemeProvider, Theme } from '@material-ui/core/styles';
 import { blue, indigo } from '@material-ui/core/colors';
-import { AppBar, Button, Grid, Toolbar } from '@material-ui/core';
+import { AppBar, Grid, Toolbar } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
-    margin: 20
+    marginTop: 20,
+    marginBottom: 20
   }
 }));
 
