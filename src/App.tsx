@@ -1,12 +1,13 @@
 import './App.css';
 import SetList from './components/SetList';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
 import CardList from './components/CardList';
-import React, { FC, useEffect } from 'react';
-import { signIn, useUser } from './utils/firebase';
+import React, { FC } from 'react';
+import { signOut, useUser } from './utils/firebase';
 import { createMuiTheme, makeStyles, MuiThemeProvider, Theme } from '@material-ui/core/styles';
 import { blue, indigo } from '@material-ui/core/colors';
-import { AppBar, Grid, Toolbar } from '@material-ui/core';
+import { AppBar, Button, Grid, Toolbar } from '@material-ui/core';
+import Login from './pages/Login';
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -23,27 +24,25 @@ const appTheme = createMuiTheme({
 });
 
 const App: FC = () => {
-  
-  useEffect(() => {
-    signIn("adamgo963@gmail.com", "test963")
-  }, []);
 
-  const user = useUser();
   const classes = useStyles();
-  
-  console.log(user);
 
+  const isLoggedIn = useUser();
+  
   return (
     <MuiThemeProvider theme={appTheme}>
       <Router>
+        {!isLoggedIn && (<Redirect to={"/"}/>)}
         <AppBar color="primary" position="static" variant="outlined">
           <Toolbar>
             <h1>Pokémon TCG App</h1>
+            {isLoggedIn && <Button onClick={() => signOut()}>Log out</Button>}
           </Toolbar>
         </AppBar>
         <Grid container className={classes.container}>
           <Switch>
-            <Route path="/" exact render={() => { return <SetList />}}/>
+            <Route path="/" exact render={() => { return <Login/>}}/>
+            <Route path="/sets" exact render={() => { return <SetList />}}/>
             <Route path="/sets/:setCode" render={({ match }) => <CardList setCode={match.params.setCode}/>}/>
           </Switch>
         </Grid>
