@@ -39,7 +39,7 @@ const App: FC = () => {
             {isLoggedIn && <Button onClick={() => signOut()}>Log out</Button>}
           </Toolbar>
         </AppBar>
-        <Grid container className={classes.container}>
+        <Grid container  direction="column" alignItems="center" justify="center" className={classes.container}>
           <Switch>
             <Route path="/" exact render={() => { return <Login/>}}/>
             <Route path="/sets" exact render={() => { return <SetList />}}/>
