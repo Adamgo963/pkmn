@@ -33,6 +33,7 @@ const CardList: FC<CardListProps> = ({setCode}) => {
       
     const loadData = useCallback(async () => {
         setLoading(true);
+        setTotalRarity({common: 0, uncommon: 0, rare: 0, holoRare: 0, amazingRare: 0, ultraRare: 0, secretRare: 0});
         try {
             const cards: any = await getSetCards(setCode);
             setData(cards.data);
