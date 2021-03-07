@@ -11,11 +11,9 @@ const getSets = async (): Promise<any[]> => {
 
 const SetList: FC = () => {
     
-    // States to store data and for loading while cards are fetched
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState<IPkmnSet[]>();
       
-    // Loads the sets
     const loadData = useCallback(async () => {
         setLoading(true);
         try {
@@ -26,7 +24,6 @@ const SetList: FC = () => {
         }
     }, [setLoading]);
   
-    // Calls the loadData() while the component is rendered
     useEffect(() => {
       loadData();
     }, [loadData]);

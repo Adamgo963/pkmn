@@ -23,7 +23,7 @@ const PkmnCardsTable: FC<PkmnCardsTableProps> = ({data}) => {
         <TableHead>
           <TableRow>
             <TableCell>Set Name</TableCell>
-            <TableCell>Set Size</TableCell>
+            <TableCell>Collected</TableCell>
             <TableCell>Release Date</TableCell>
           </TableRow>
         </TableHead>
@@ -31,7 +31,7 @@ const PkmnCardsTable: FC<PkmnCardsTableProps> = ({data}) => {
           {data?.map((item: IPkmnSet) => (
             <TableRow key={item.name}>
               <TableCell component="th" scope="row"><Link to={`/sets/${item.id}`}>{item.name}</Link></TableCell>
-              <TableCell>{item.total}</TableCell>
+              <TableCell>0/{item.total}</TableCell>
               <TableCell>{item.releaseDate}</TableCell>
             </TableRow>
           ))}

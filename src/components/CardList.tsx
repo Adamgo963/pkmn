@@ -1,7 +1,7 @@
 import React, { FC, useState, useCallback, useEffect } from "react";
 import PkmnCardsTable from "./PkmnCardsTable";
-import {Typography, Grid, Button, makeStyles} from "@material-ui/core";
-import { IPkmnCard, IView } from "../types";
+import {Typography, Grid, Button, makeStyles, Card, CardContent} from "@material-ui/core";
+import { IPkmnCard, IRarity, IView } from "../types";
 import PkmnCardsGrid from "./PkmnCardsGrid";
 import { Link } from "react-router-dom";
 
@@ -24,14 +24,13 @@ const useStyles = makeStyles({
 
 const CardList: FC<CardListProps> = ({setCode}) => {
     
-    // States to store data and for loading while cards are fetched
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState<IPkmnCard[]>();
     const [view, setView] = useState<IView>('List');
+    const [totalRarity, setTotalRarity] = useState<IRarity>({common: 0, uncommon: 0, rare: 0, holoRare: 0, amazingRare: 0, ultraRare: 0, secretRare: 0});
 
     const classes = useStyles();
       
-    // Loads the set cards
     const loadData = useCallback(async () => {
         setLoading(true);
         try {
@@ -42,7 +41,6 @@ const CardList: FC<CardListProps> = ({setCode}) => {
         }
     }, [setLoading, setCode]);
   
-    // Calls the loadData() while the component is rendered
     useEffect(() => {
       loadData();
     }, [loadData]);
@@ -60,6 +58,31 @@ const CardList: FC<CardListProps> = ({setCode}) => {
         <Grid item xl={6} lg={6} sm={12} xs={12}>
           <Button variant="contained" color="primary"><Link className={classes.link} to={`/sets/`}>Back to sets list</Link></Button>
           <Button variant="contained" color="primary" onClick={() => changeView()}>Switch View</Button>
+          <Card>
+            <CardContent>
+              <Typography variant="h5">
+                Common: 0/{totalRarity.common}
+              </Typography>
+              <Typography variant="h5" component="h2">
+                Uncommon: 0/{totalRarity.uncommon}
+              </Typography>
+              <Typography variant="h5">
+                Rare: 0/{totalRarity.rare}
+              </Typography>
+              <Typography variant="h5">
+                Holo Rare: 0/{totalRarity.holoRare}
+              </Typography>
+              <Typography variant="h5">
+                Amazing Rare: 0/{totalRarity.amazingRare}
+              </Typography>
+              <Typography variant="h5">
+                Ultra Rare: 0/{totalRarity.ultraRare}
+              </Typography>
+              <Typography variant="h5">
+                Secret Rare: 0/{totalRarity.secretRare}
+              </Typography>
+            </CardContent>
+          </Card>
           {data ? 
             (view === 'List' ? 
               <PkmnCardsTable data={data}></PkmnCardsTable> 

@@ -19,7 +19,7 @@ const Login: FC = () => {
   return (
     <Card>
         <CardContent>
-            <Typography variant="h1" color="secondary">
+            <Typography variant="h5" color="secondary">
               Pokémon TCG App
             </Typography>
             <Button onClick={() => googleSignIn()}>
