@@ -1,6 +1,6 @@
 import {makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@material-ui/core";
 import { FC } from "react";
-import { IPkmnSet } from "../types";
+import {IPokedexEntry } from "../types";
 import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
@@ -9,11 +9,11 @@ const useStyles = makeStyles({
   },
 });
 
-type PkmnCardsTableProps = {
-  data: IPkmnSet[];
+type PokedexTableProps = {
+  data: IPokedexEntry[];
 }
 
-const PkmnCardsTable: FC<PkmnCardsTableProps> = ({data}) => {
+const PokedexTable: FC<PokedexTableProps> = ({data}) => {
       
   const classes = useStyles();
       
@@ -22,23 +22,23 @@ const PkmnCardsTable: FC<PkmnCardsTableProps> = ({data}) => {
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Set Name</TableCell>
+            <TableCell>Pokedex #</TableCell>
+            <TableCell>Name</TableCell>
             <TableCell>Collected</TableCell>
-            <TableCell>Release Date</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {data?.map((item: IPkmnSet) => (
-            <TableRow key={item.name}>
-              <TableCell component="th" scope="row"><Link to={`/sets/${item.id}`}>{item.name}</Link></TableCell>
-              <TableCell>0/{item.total}</TableCell>
-              <TableCell>{item.releaseDate}</TableCell>
-            </TableRow>
-          ))}
+        {data.map((item: IPokedexEntry) => (
+          <TableRow>
+            <TableCell component="th" scope="row">{item.number}</TableCell>
+            <TableCell>{item.name}</TableCell>
+            <TableCell>No</TableCell>
+          </TableRow>
+        ))}
         </TableBody>
       </Table>
     </TableContainer>
   );
 }
 
-export default PkmnCardsTable;
+export default PokedexTable;

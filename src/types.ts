@@ -31,3 +31,8 @@ export type IRarity = {
   ultraRare: number;
   secretRare: number;
 }
+
+export type IPokedexEntry = {
+  number: number,
+  name: string
+}

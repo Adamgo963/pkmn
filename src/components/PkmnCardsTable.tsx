@@ -1,5 +1,5 @@
 import { makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@material-ui/core";
-import React, { FC } from "react";
+import { FC } from "react";
 import { IPkmnCard } from "../types";
 
 const useStyles = makeStyles({

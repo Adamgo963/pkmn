@@ -1,4 +1,4 @@
-import React, { FC, useState, useCallback, useEffect } from "react";
+import { FC, useState, useCallback, useEffect } from "react";
 import PkmnSetsTable from "./PkmnSetsTable";
 import {Typography, Grid} from "@material-ui/core";
 import { IPkmnSet } from "../types";
