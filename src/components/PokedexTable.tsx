@@ -1,7 +1,6 @@
 import {makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@material-ui/core";
 import { FC } from "react";
 import {IPokedexEntry } from "../types";
-import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
   table: {
