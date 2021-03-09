@@ -23,6 +23,7 @@ export type IPkmnSet = {
 export type IView = 'Grid' | 'List';
 
 export type IRarity = {
+  total: number;
   common: number;
   uncommon: number;
   rare: number;

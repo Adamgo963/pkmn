@@ -11,6 +11,47 @@ const getSetCards = async (setCode: string): Promise<any[]> => {
     return cards;
 };
 
+const getQuantity = (cards: IPkmnCard[]) => {
+  const quantities: IRarity = {total: 0, common: 0, uncommon: 0, rare: 0, holoRare: 0, amazingRare: 0, ultraRare: 0, secretRare: 0}
+  cards?.forEach((item: IPkmnCard) => {
+    switch(item.rarity) {
+      case "Common":
+        quantities.common++
+        break;
+      case "Uncommon":
+        quantities.uncommon++
+        break;
+      case "Rare":
+        quantities.rare++
+        break;
+      case "Rare Holo":
+        quantities.holoRare++
+        break;
+      case "Amazing Rare":
+        quantities.amazingRare++
+        break;
+      case "Rare Ultra":
+        quantities.ultraRare++
+        break;
+      case "Rare Holo V":
+        quantities.ultraRare++
+        break;
+      case "Rare Holo VMAX":
+        quantities.ultraRare++
+        break;
+      case "Rare Secret":
+        quantities.secretRare++
+        break;
+      case "Rare Rainbow":
+        quantities.secretRare++
+        break;
+    }
+    quantities.total++
+  }
+  )
+  return quantities;
+}
+
 type CardListProps = {
   setCode: string;
 }
@@ -27,16 +68,17 @@ const CardList: FC<CardListProps> = ({setCode}) => {
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState<IPkmnCard[]>();
     const [view, setView] = useState<IView>('List');
-    const [totalRarity, setTotalRarity] = useState<IRarity>({common: 0, uncommon: 0, rare: 0, holoRare: 0, amazingRare: 0, ultraRare: 0, secretRare: 0});
+    const [totalRarity, setTotalRarity] = useState<IRarity>();
 
     const classes = useStyles();
       
     const loadData = useCallback(async () => {
         setLoading(true);
-        setTotalRarity({common: 0, uncommon: 0, rare: 0, holoRare: 0, amazingRare: 0, ultraRare: 0, secretRare: 0});
         try {
             const cards: any = await getSetCards(setCode);
             setData(cards.data);
+            const quantities: IRarity = getQuantity(cards.data);
+            setTotalRarity(quantities);
         } finally {
           setLoading(false);
         }
@@ -62,25 +104,31 @@ const CardList: FC<CardListProps> = ({setCode}) => {
           <Card>
             <CardContent>
               <Typography variant="h5">
-                Common: 0/{totalRarity.common}
+                Common: 0/{totalRarity ? totalRarity.common : "Unknown"}
               </Typography>
               <Typography variant="h5" component="h2">
-                Uncommon: 0/{totalRarity.uncommon}
+                Uncommon: 0/{totalRarity ? totalRarity.uncommon : "Unknown"}
               </Typography>
               <Typography variant="h5">
-                Rare: 0/{totalRarity.rare}
+                Rare: 0/{totalRarity ? totalRarity.rare : "Unknown"}
               </Typography>
               <Typography variant="h5">
-                Holo Rare: 0/{totalRarity.holoRare}
+                Holo Rare: 0/{totalRarity ? totalRarity.holoRare : "Unknown"}
               </Typography>
               <Typography variant="h5">
-                Amazing Rare: 0/{totalRarity.amazingRare}
+                Amazing Rare: 0/{totalRarity ? totalRarity.amazingRare : "Unknown"}
               </Typography>
               <Typography variant="h5">
-                Ultra Rare: 0/{totalRarity.ultraRare}
+                Ultra Rare: 0/{totalRarity ? totalRarity.ultraRare : "Unknown"}
               </Typography>
               <Typography variant="h5">
-                Secret Rare: 0/{totalRarity.secretRare}
+                Secret Rare: 0/{totalRarity ? totalRarity.secretRare : "Unknown"}
+              </Typography>
+              <Typography variant="h5">
+                Spolu: {totalRarity ? totalRarity.common + totalRarity.uncommon + totalRarity.rare + totalRarity.holoRare + totalRarity.amazingRare + totalRarity.ultraRare + totalRarity.secretRare : "Unknown"}
+              </Typography>
+              <Typography variant="h5">
+                Collected: 0/{totalRarity ? totalRarity.total : "Unknown"}
               </Typography>
             </CardContent>
           </Card>
