@@ -1,10 +1,18 @@
-import { makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@material-ui/core";
+import { makeStyles, Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, ThemeProvider, createMuiTheme, Typography} from "@material-ui/core";
 import { FC } from "react";
 import { IPkmnCard } from "../types";
+import { green, red } from '@material-ui/core/colors';
 
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
+  },
+});
+
+const buttonsTheme = createMuiTheme({
+  palette: {
+    primary: green,
+    secondary: red,
   },
 });
 
@@ -23,6 +31,7 @@ const PkmnCardsTable: FC<PkmnCardsTableProps> = ({data}) => {
           <TableRow>
             <TableCell>Card #</TableCell>
             <TableCell>Card Name</TableCell>
+            <TableCell>Collection</TableCell>
             <TableCell>Rarity</TableCell>
           </TableRow>
         </TableHead>
@@ -33,6 +42,13 @@ const PkmnCardsTable: FC<PkmnCardsTableProps> = ({data}) => {
                 {item.number}
               </TableCell>
               <TableCell>{item.name}</TableCell>
+              <TableCell>
+                <ThemeProvider theme={buttonsTheme}>
+                  <Button variant="contained" color="secondary"><b>-</b></Button>
+                  <Typography>0</Typography>
+                  <Button variant="contained" color="primary"><b>+</b></Button>
+                </ThemeProvider>
+              </TableCell>
               <TableCell>{item.rarity}</TableCell>
             </TableRow>
           ))}
